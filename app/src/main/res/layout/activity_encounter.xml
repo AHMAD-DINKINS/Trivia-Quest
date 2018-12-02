@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EncounterActivity">
+
+    <ImageView
+        android:id="@+id/characterAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="88dp"
+        android:contentDescription="@string/"
+        app:layout_constraintBottom_toTopOf="@+id/questionView"
+        app:layout_constraintEnd_toStartOf="@+id/enemyAvatar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/enemyAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/"
+        app:layout_constraintBottom_toTopOf="@+id/questionView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="380dp"
+        android:layout_height="298dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/answerOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="radiobutton" />
+
+        <RadioButton
+            android:id="@+id/answerTwo"
+            android:layout_width="402dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="radiobutton" />
+
+        <RadioButton
+            android:id="@+id/answerThree"
+            android:layout_width="396dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="radiobutton" />
+
+        <RadioButton
+            android:id="@+id/answerFour"
+            android:layout_width="417dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="radiobutton" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/questionView"
+        android:layout_width="383dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/app_name"
+        android:text="this_is_the_question"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/playerCurrentHealth"
+        android:layout_width="65dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="128dp"
+        android:text="99"
+        app:layout_constraintBottom_toTopOf="@+id/characterAvatar"
+        app:layout_constraintEnd_toStartOf="@+id/enemyCurrentHealth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/playerMaxHealth"
+        android:layout_width="65dp"
+        android:layout_height="62dp"
+        android:text="textview"
+        app:layout_constraintBottom_toTopOf="@+id/questionView"
+        app:layout_constraintEnd_toStartOf="@+id/enemyMaxHealth"
+        app:layout_constraintStart_toEndOf="@+id/characterAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/playerCurrentHealth" />
+
+    <TextView
+        android:id="@+id/enemyCurrentHealth"
+        android:layout_width="62dp"
+        android:layout_height="64dp"
+        android:text="textview"
+        app:layout_constraintBottom_toTopOf="@+id/enemyMaxHealth"
+        app:layout_constraintEnd_toStartOf="@+id/enemyAvatar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/playerCurrentHealth"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enemyMaxHealth"
+        android:layout_width="63dp"
+        android:layout_height="62dp"
+        android:text="textview"
+        app:layout_constraintBottom_toTopOf="@+id/questionView"
+        app:layout_constraintEnd_toStartOf="@+id/enemyAvatar"
+        app:layout_constraintStart_toEndOf="@+id/playerMaxHealth"
+        app:layout_constraintTop_toBottomOf="@+id/enemyCurrentHealth" />
+
+</android.support.constraint.ConstraintLayout>

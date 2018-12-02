@@ -7,16 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class CharacterSelectionActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_character_selection);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Button start = findViewById(R.id.startButton);
-        start.setOnClickListener(new Button.OnClickListener(){
+        Button ready = findViewById(R.id.readyButton);
+        ready.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(MainActivity.this, CharacterSelectionActivity.class));
+                startActivity(new Intent(CharacterSelectionActivity.this, MazeActivity.class));
             }
         });
     }
