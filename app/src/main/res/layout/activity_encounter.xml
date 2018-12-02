@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,37 +8,38 @@
 
     <ImageView
         android:id="@+id/characterAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_width="133dp"
+        android:layout_height="133dp"
         android:layout_marginEnd="88dp"
-        android:contentDescription="@string/"
+        android:contentDescription="@string/image_content_cs125_logo"
         app:layout_constraintBottom_toTopOf="@+id/questionView"
         app:layout_constraintEnd_toStartOf="@+id/enemyAvatar"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/avatar1"
+        tools:srcCompat="@drawable/avatar1" />
 
     <ImageView
         android:id="@+id/enemyAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/"
+        android:layout_width="133dp"
+        android:layout_height="133dp"
+        android:contentDescription="@string/image_content_cs125_logo"
         app:layout_constraintBottom_toTopOf="@+id/questionView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/avatar2"
+        tools:srcCompat="@drawable/avatar2" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/answerGroup"
         android:layout_width="380dp"
-        android:layout_height="298dp"
+        android:layout_height="243dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -48,28 +49,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="radiobutton" />
+            android:text="1" />
 
         <RadioButton
             android:id="@+id/answerTwo"
             android:layout_width="402dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="radiobutton" />
+            android:text="2" />
 
         <RadioButton
             android:id="@+id/answerThree"
             android:layout_width="396dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="radiobutton" />
+            android:text="3" />
 
         <RadioButton
             android:id="@+id/answerFour"
             android:layout_width="417dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="radiobutton" />
+            android:text="4" />
+
     </RadioGroup>
 
     <TextView
@@ -81,53 +83,39 @@
         android:contentDescription="@string/app_name"
         android:text="this_is_the_question"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/answerGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/playerCurrentHealth"
-        android:layout_width="65dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="128dp"
-        android:text="99"
-        app:layout_constraintBottom_toTopOf="@+id/characterAvatar"
-        app:layout_constraintEnd_toStartOf="@+id/enemyCurrentHealth"
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="8dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/answerGroup" />
 
     <TextView
-        android:id="@+id/playerMaxHealth"
-        android:layout_width="65dp"
-        android:layout_height="62dp"
-        android:text="textview"
-        app:layout_constraintBottom_toTopOf="@+id/questionView"
-        app:layout_constraintEnd_toStartOf="@+id/enemyMaxHealth"
+        android:id="@+id/result"
+        android:layout_width="100dp"
+        android:layout_height="133dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="436dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/enemyAvatar"
+        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toEndOf="@+id/characterAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/playerCurrentHealth" />
-
-    <TextView
-        android:id="@+id/enemyCurrentHealth"
-        android:layout_width="62dp"
-        android:layout_height="64dp"
-        android:text="textview"
-        app:layout_constraintBottom_toTopOf="@+id/enemyMaxHealth"
-        app:layout_constraintEnd_toStartOf="@+id/enemyAvatar"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/playerCurrentHealth"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/enemyMaxHealth"
-        android:layout_width="63dp"
-        android:layout_height="62dp"
-        android:text="textview"
-        app:layout_constraintBottom_toTopOf="@+id/questionView"
-        app:layout_constraintEnd_toStartOf="@+id/enemyAvatar"
-        app:layout_constraintStart_toEndOf="@+id/playerMaxHealth"
-        app:layout_constraintTop_toBottomOf="@+id/enemyCurrentHealth" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.495" />
 
 </android.support.constraint.ConstraintLayout>

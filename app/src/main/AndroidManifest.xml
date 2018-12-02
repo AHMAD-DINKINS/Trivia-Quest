@@ -22,7 +22,8 @@
             android:name=".EncounterActivity"
             android:label="@string/app_name" />
         <activity android:name=".CharacterSelectionActivity" />
-        <activity android:name=".MazeActivity"></activity>
+        <activity android:name=".MazeActivity">
+        </activity>
     </application>
 
 </manifest>
