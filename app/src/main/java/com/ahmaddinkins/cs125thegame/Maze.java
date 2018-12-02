@@ -8,7 +8,7 @@ import java.util.Random;
  * */
 public class Maze {
     /**The size of the Maze.**/
-    private static final int SIZE = 5;
+    private static final int SIZE = 10;
     /**Random object used to choose a neighbor at random**/
     private static Random random = new Random();
     /**The Maze**/

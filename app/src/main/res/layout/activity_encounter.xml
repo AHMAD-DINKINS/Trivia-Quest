@@ -81,6 +81,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/app_name"
+        android:gravity="center"
         android:text="this_is_the_question"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/answerGroup"
