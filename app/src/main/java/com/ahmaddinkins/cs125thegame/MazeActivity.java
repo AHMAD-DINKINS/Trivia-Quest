@@ -45,7 +45,6 @@ public class MazeActivity extends AppCompatActivity {
     }
 
     private Drawable parseCell(Cell cell) {
-        System.out.print(cell.toString() + "|");
         switch (cell.toString()) {
             case "L":
                 return getDrawable(R.drawable.left);
