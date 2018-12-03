@@ -5,16 +5,16 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.GridLayout;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class MazeActivity extends AppCompatActivity {
+    private static final String TAG = "filtered";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +38,26 @@ public class MazeActivity extends AppCompatActivity {
             for (Cell cell : row) {
                 ImageView imageView = new ImageView(MazeActivity.this);
                 imageView.setImageDrawable(parseCell(cell));
-                gridMaze.addView(imageView, cell.getY());
+                gridMaze.addView(imageView, cell.getIndex());
             }
         }
         System.out.println(gridMaze.getChildCount());
+    }
+
+    public void upClick(View view) {
+        Log.i(TAG, "upClick");
+    }
+
+    public void rightClick(View view) {
+        Log.i(TAG, "rightClick");
+    }
+
+    public void leftClick(View view) {
+        Log.i(TAG, "leftClick");
+    }
+
+    public void downClick(View view) {
+        Log.i(TAG, "downClick");
     }
 
     private Drawable parseCell(Cell cell) {
@@ -77,5 +93,4 @@ public class MazeActivity extends AppCompatActivity {
         }
         return getDrawable(R.drawable.fail);
     }
-
 }

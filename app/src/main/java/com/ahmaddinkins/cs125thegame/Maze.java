@@ -40,6 +40,7 @@ public class Maze {
         }
         ArrayList<Cell> stack = new ArrayList<>();
         Cell start = maze.get(random.nextInt(SIZE - 1)).get(random.nextInt(SIZE - 1));
+        start.setVisited();
         generate(start, stack);
     }
     /**
@@ -48,10 +49,6 @@ public class Maze {
      * @param stack The list that is used to keep track of a path of cells.
      */
     private static void generate(final Cell cell, final ArrayList<Cell> stack) {
-        if (!cell.isVisited()) {
-            cell.setVisited();
-            stack.add(cell);
-        }
         ArrayList<Cell> nextPossibleCells = new ArrayList<>();
         for (Cell neighbor : cell.getNeighbors()) {
             if (neighbor != null && !neighbor.isVisited()) {
@@ -65,17 +62,25 @@ public class Maze {
             return;
         } else if (nextPossibleCells.size() == 1) {
             Cell next = nextPossibleCells.get(0);
+            next.setVisited();
+            stack.add(next);
             cell.getWalls()[cell.getNeighbors().indexOf(next)] = false;
             next.getWalls()[next.getNeighbors().indexOf(cell)] = false;
             generate(next, stack);
             return;
         }
         Cell next = nextPossibleCells.get(random.nextInt(nextPossibleCells.size() - 1));
+        next.setVisited();
+        stack.add(next);
         cell.getWalls()[cell.getNeighbors().indexOf(next)] = false;
         next.getWalls()[next.getNeighbors().indexOf(cell)] = false;
         generate(next, stack);
     }
 
+    /**
+     * For Testing
+     * @param args unused
+     */
     public static void main(String[] args) {
         getMaze();
         for (List<Cell> cells : Maze.maze) {

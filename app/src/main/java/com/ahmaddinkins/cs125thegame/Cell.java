@@ -1,15 +1,22 @@
 package com.ahmaddinkins.cs125thegame;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 
 /**
  * Nested class that represents the cells of a maze.
  */
 public class Cell  {
+    /** x-coordinate of cell.*/
     private int x;
+    /** y-coordinate of cell.*/
     private int y;
+    /** visited state of cell.*/
     private boolean visited;
+    /** walls of cell.*/
     private boolean[] walls = {true, true, true, true};
+    /** neighboring cells.*/
     private ArrayList<Cell> neighbors;
     /**
      * Constuctor for Cells objects.
@@ -45,21 +52,42 @@ public class Cell  {
         }
         neighbors = adjacentCells;
     }
+    /**
+     * Getter for the neighbors of the cell.
+     * @return The neighbors of the cell.
+     */
     ArrayList<Cell> getNeighbors() {
         return neighbors;
     }
+    /**
+     * Getter for the cell's walls.
+     * @return The walls of the cell.
+     */
     boolean[] getWalls() {
         return walls;
     }
-    int getX() {
-        return x;
-    }
-    int getY() {
+    /**
+     * getter for the y coordinate
+     * @return The index the cell would be at in a one dimensional array of length Maze.SIZE * Maze.SIZE
+     */
+    int getIndex() {
         return y;
     }
+    /**
+     * Returns if the cell has been visited or not.
+     * @return The visited state of the cell.
+     */
     boolean isVisited() {
         return visited;
     }
+    /**Checks if the cell has been visited
+    boolean isVisited() {
+        return visited;
+    }
+
+    /**
+     * Marks the cell as visited;
+     */
     void setVisited() {
         visited = true;
     }
@@ -74,19 +102,20 @@ public class Cell  {
      * B: Bottom wall
      * @return A string that indicates which walls the cell has up.
      */
+    @NonNull
     public String toString() {
-        String output  = "";
+        StringBuilder output  = new StringBuilder();
         for (int index = 0; index < walls.length; index++) {
             if (index == 0 && walls[index]) {
-                output += "L";
+                output.append("L");
             } else if (index == 1 && walls[index]) {
-                output += "T";
+                output.append("T");
             } else if (index == 2 && walls[index]) {
-                output += "R";
+                output.append("R");
             } else if (walls[index]){
-                output += "B";
+                output.append("B");
             }
         }
-        return output;
+        return output.toString();
     }
 }

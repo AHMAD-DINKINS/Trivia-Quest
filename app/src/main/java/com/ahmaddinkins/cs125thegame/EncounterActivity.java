@@ -14,7 +14,6 @@ import android.util.Log;
 import java.util.Timer;
 
 public class EncounterActivity extends AppCompatActivity {
-    private static final String TAG = "test";
 
     private RadioGroup radioAnswerGroup;
     private RadioButton radioAnswer;
@@ -28,8 +27,6 @@ public class EncounterActivity extends AppCompatActivity {
 
         result = (TextView) findViewById(R.id.result);
         addListenerButton();
-
-        Log.i(TAG, "onCreate");
     }
 
     public void addListenerButton() {
@@ -54,7 +51,7 @@ public class EncounterActivity extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            startActivity(new Intent(EncounterActivity.this, MazeActivity.class));
+                            finish();
                         }
                     }, 250);
                 } else {
@@ -64,51 +61,4 @@ public class EncounterActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG, "onStart");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(TAG, "onPause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, "onStop");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(TAG, "onRestart");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy");
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.i(TAG, "onSaveInstanceState");
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.i(TAG, "onRestoreInstanceState");
-    }
 }
