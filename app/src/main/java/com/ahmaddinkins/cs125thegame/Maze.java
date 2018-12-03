@@ -8,16 +8,16 @@ import java.util.Random;
  * */
 public class Maze {
     /**The size of the Maze.**/
-    private static final int SIZE = 10;
+    static final int SIZE = 10;
     /**Random object used to choose a neighbor at random**/
     private static Random random = new Random();
     /**The Maze**/
-    private static ArrayList<ArrayList<Cell>> maze;
+    static ArrayList<ArrayList<Cell>> maze;
     /**
      * Return a new Maze.
      * @return a freshly generated maze.
      */
-    public static ArrayList<ArrayList<Cell>> getMaze() {
+    static ArrayList<ArrayList<Cell>> getMaze() {
         generateMaze();
         return maze;
     }
@@ -48,13 +48,13 @@ public class Maze {
      * @param stack The list that is used to keep track of a path of cells.
      */
     private static void generate(final Cell cell, final ArrayList<Cell> stack) {
-        if (!cell.visited) {
-            cell.visited = true;
+        if (!cell.isVisited()) {
+            cell.setVisited();
             stack.add(cell);
         }
         ArrayList<Cell> nextPossibleCells = new ArrayList<>();
-        for (Cell neighbor : cell.neighbors) {
-            if (neighbor != null && !neighbor.visited) {
+        for (Cell neighbor : cell.getNeighbors()) {
+            if (neighbor != null && !neighbor.isVisited()) {
                 nextPossibleCells.add(neighbor);
             }
         }
@@ -65,85 +65,15 @@ public class Maze {
             return;
         } else if (nextPossibleCells.size() == 1) {
             Cell next = nextPossibleCells.get(0);
-            cell.walls[cell.neighbors.indexOf(next)] = false;
-            next.walls[next.neighbors.indexOf(cell)] = false;
+            cell.getWalls()[cell.getNeighbors().indexOf(next)] = false;
+            next.getWalls()[next.getNeighbors().indexOf(cell)] = false;
             generate(next, stack);
             return;
         }
         Cell next = nextPossibleCells.get(random.nextInt(nextPossibleCells.size() - 1));
-        cell.walls[cell.neighbors.indexOf(next)] = false;
-        next.walls[next.neighbors.indexOf(cell)] = false;
+        cell.getWalls()[cell.getNeighbors().indexOf(next)] = false;
+        next.getWalls()[next.getNeighbors().indexOf(cell)] = false;
         generate(next, stack);
-    }
-    /**
-     * Nested class that represents the cells of a maze.
-     */
-    private static class Cell  {
-        private int x;
-        private int y;
-        private boolean visited;
-        private boolean[] walls = {true, true, true, true};
-        private ArrayList<Cell> neighbors;
-        /**
-         * Constuctor for Cells objects.
-         * @param setX The row the cell is within.
-         * @param setY The column the cell is within.
-         */
-        Cell(final int setX, final int setY) {
-            x = setX;
-            y = setY;
-        }
-        /**
-         * Function that finds all of the horizontal and adjacent neighboring cells.
-         */
-        private void findNeighbors() {
-             ArrayList<Cell> adjacentCells = new ArrayList<>();
-            for (int index = 0; index < 4; index++) {
-                int xPosition = 0; // horizonatal neighbor
-                int yPosition = 0; // vertical neighbor
-                if (index == 0) { // left neighbor
-                    yPosition--;
-                } else if (index == 1) { // top neighbor
-                    xPosition--;
-                } else if (index == 2) { // right neighbor
-                    yPosition++;
-                } else { // bottom neighbor
-                    xPosition++;
-                }
-                try {
-                    adjacentCells.add(index, maze.get(x + xPosition).get(y%SIZE + yPosition));
-                } catch (Exception e) {
-                    adjacentCells.add(index, null);
-                }
-            }
-            neighbors = adjacentCells;
-        }
-        /**
-         * Function that represents a cell as a String.
-         * -----------
-         * KEY
-         * ----------
-         * L: Left wall
-         * T: Top wall
-         * R: Right wall
-         * B: Bottom wall
-         * @return A string that indicates which walls the cell has up.
-         */
-        public String toString() {
-            String output  = "";
-            for (int index = 0; index < walls.length; index++) {
-                if (index == 0 && walls[index]) {
-                    output += "L";
-                } else if (index == 1 && walls[index]) {
-                    output += "T";
-                } else if (index == 2 && walls[index]) {
-                    output += "R";
-                } else if (walls[index]){
-                    output += "B";
-                }
-            }
-            return output + " ";
-        }
     }
 
     public static void main(String[] args) {

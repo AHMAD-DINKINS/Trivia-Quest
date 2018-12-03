@@ -81,11 +81,9 @@
         app:layout_constraintTop_toBottomOf="@+id/upButton" />
 
     <android.support.v7.widget.GridLayout
+        android:id="@+id/mazeGrid"
         android:layout_width="320dp"
         android:layout_height="320dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="3dp"
         app:columnCount="10"
         app:layout_constraintBottom_toTopOf="@+id/button1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +92,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:rowCount="10">
-
+        <!--
         <ImageView
             android:id="@+id/imageView0"
             android:layout_width="wrap_content"
@@ -193,6 +191,6 @@
             app:layout_row="9"
             app:srcCompat="@drawable/boy"
             tools:layout_editor_absoluteX="60dp"
-            tools:layout_editor_absoluteY="121dp" />
+            tools:layout_editor_absoluteY="121dp" />-->
     </android.support.v7.widget.GridLayout>
 </android.support.constraint.ConstraintLayout>
