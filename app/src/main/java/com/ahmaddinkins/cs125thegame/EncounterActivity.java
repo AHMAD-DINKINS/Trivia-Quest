@@ -1,6 +1,7 @@
 package com.ahmaddinkins.cs125thegame;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -24,8 +25,9 @@ public class EncounterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encounter);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        result = (TextView) findViewById(R.id.result);
+        result = findViewById(R.id.result);
         addListenerButton();
     }
 

@@ -1,5 +1,6 @@
 package com.ahmaddinkins.cs125thegame;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -11,6 +12,8 @@ public class Maze {
     static final int SIZE = 10;
     /**Random object used to choose a neighbor at random**/
     private static Random random = new Random();
+    /**Cell where the player will start from*/
+    public static Cell start;
     /**The Maze**/
     static ArrayList<ArrayList<Cell>> maze;
     /**
@@ -39,7 +42,7 @@ public class Maze {
             }
         }
         ArrayList<Cell> stack = new ArrayList<>();
-        Cell start = maze.get(random.nextInt(SIZE - 1)).get(random.nextInt(SIZE - 1));
+        start = maze.get(random.nextInt(SIZE - 1)).get(random.nextInt(SIZE - 1));
         start.setVisited();
         generate(start, stack);
     }

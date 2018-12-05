@@ -16,8 +16,12 @@ public class MainActivity extends AppCompatActivity {
         Button start = findViewById(R.id.startButton);
         start.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(MainActivity.this, CharacterSelectionActivity.class));
+                startActivity(new Intent(MainActivity.this, MazeActivity.class));
             }
         });
+    }
+
+    public void instructions(View view) {
+        startActivity(new Intent(MainActivity.this, InstructionsActivity.class));
     }
 }

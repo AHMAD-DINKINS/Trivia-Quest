@@ -1,5 +1,6 @@
 package com.ahmaddinkins.cs125thegame;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
@@ -13,12 +14,15 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import static com.ahmaddinkins.cs125thegame.Maze.maze;
+
 public class MazeActivity extends AppCompatActivity {
     private static final String TAG = "filtered";
-
+    private Drawable character;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startActivityForResult(new Intent(MazeActivity.this, CharacterSelectionActivity.class), 1);
         setContentView(R.layout.activity_maze);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -28,20 +32,44 @@ public class MazeActivity extends AppCompatActivity {
                 startActivity(new Intent(MazeActivity.this, EncounterActivity.class));
             }
         });
-
-        GridLayout mazeGrid = findViewById(R.id.mazeGrid);
-        init(mazeGrid);
     }
 
-    private void init(GridLayout gridMaze) {
+    private void init(final GridLayout gridMaze, final GridLayout characterGridMaze) {
+        Log.i(TAG, "init");
         for(ArrayList<Cell> row : Maze.getMaze()) {
             for (Cell cell : row) {
                 ImageView imageView = new ImageView(MazeActivity.this);
                 imageView.setImageDrawable(parseCell(cell));
                 gridMaze.addView(imageView, cell.getIndex());
+                if (cell == Maze.start) {
+                    ImageView characterImageView = new ImageView(MazeActivity.this);
+                    characterImageView.setImageDrawable(character);
+                    characterGridMaze.addView(characterImageView, cell.getIndex());
+                } else {
+                    ImageView characterImageView = new ImageView(MazeActivity.this);
+                    characterImageView.setImageDrawable(getDrawable(R.drawable.clear));
+                    characterGridMaze.addView(characterImageView, cell.getIndex());
+                }
             }
         }
-        System.out.println(gridMaze.getChildCount());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(TAG, "result");
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                character = getDrawable(data.getIntExtra("selectedCharacter", R.drawable.alien));
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                character = getDrawable(R.drawable.alien);
+            }
+        }
+        GridLayout mazeGrid = findViewById(R.id.mazeGrid);
+        GridLayout characterMazeGrid = findViewById(R.id.characterMazeGrid);
+        init(mazeGrid, characterMazeGrid);
+    }
+
+    private void update() {
     }
 
     public void upClick(View view) {
