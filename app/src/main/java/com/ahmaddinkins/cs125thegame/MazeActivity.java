@@ -18,7 +18,9 @@ import static com.ahmaddinkins.cs125thegame.Maze.maze;
 
 public class MazeActivity extends AppCompatActivity {
     private static final String TAG = "filtered";
+    private GridLayout characterMazeGrid;
     private Drawable character;
+    private int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,7 @@ public class MazeActivity extends AppCompatActivity {
         });
     }
 
-    private void init(final GridLayout gridMaze, final GridLayout characterGridMaze) {
+    private void init(final GridLayout gridMaze) {
         Log.i(TAG, "init");
         for(ArrayList<Cell> row : Maze.getMaze()) {
             for (Cell cell : row) {
@@ -44,11 +46,12 @@ public class MazeActivity extends AppCompatActivity {
                 if (cell == Maze.start) {
                     ImageView characterImageView = new ImageView(MazeActivity.this);
                     characterImageView.setImageDrawable(character);
-                    characterGridMaze.addView(characterImageView, cell.getIndex());
+                    characterMazeGrid.addView(characterImageView, cell.getIndex());
+                    position = cell.getIndex();
                 } else {
                     ImageView characterImageView = new ImageView(MazeActivity.this);
                     characterImageView.setImageDrawable(getDrawable(R.drawable.clear));
-                    characterGridMaze.addView(characterImageView, cell.getIndex());
+                    characterMazeGrid.addView(characterImageView, cell.getIndex());
                 }
             }
         }
@@ -65,27 +68,57 @@ public class MazeActivity extends AppCompatActivity {
             }
         }
         GridLayout mazeGrid = findViewById(R.id.mazeGrid);
-        GridLayout characterMazeGrid = findViewById(R.id.characterMazeGrid);
-        init(mazeGrid, characterMazeGrid);
+        characterMazeGrid = findViewById(R.id.characterMazeGrid);
+        init(mazeGrid);
     }
 
-    private void update() {
+    private void update(final int newPosition) {
+        for(ArrayList<Cell> row : maze) {
+            for (Cell cell : row) {
+                if (cell.getIndex() == newPosition) {
+                    ImageView characterImageView = new ImageView(MazeActivity.this);
+                    characterImageView.setImageDrawable(character);
+                    characterMazeGrid.addView(characterImageView, cell.getIndex());
+                    position = newPosition;
+                } else {
+                    ImageView characterImageView = new ImageView(MazeActivity.this);
+                    characterImageView.setImageDrawable(getDrawable(R.drawable.clear));
+                    characterMazeGrid.addView(characterImageView, cell.getIndex());
+                }
+            }
+        }
     }
 
     public void upClick(View view) {
         Log.i(TAG, "upClick");
+        if (maze.get(position / Maze.SIZE).get(position % Maze.SIZE).getWalls()[1]){
+            return;
+        }
+        update(position - Maze.SIZE);
     }
 
     public void rightClick(View view) {
         Log.i(TAG, "rightClick");
+        if (maze.get(position / Maze.SIZE).get(position % Maze.SIZE).getWalls()[2]){
+            return;
+        }
+        update(position + 1);
     }
 
     public void leftClick(View view) {
         Log.i(TAG, "leftClick");
+        if (maze.get(position / Maze.SIZE).get(position % Maze.SIZE).getWalls()[0]){
+            return;
+        }
+        update(position - 1);
     }
 
     public void downClick(View view) {
         Log.i(TAG, "downClick");
+        if (maze.get(position / Maze.SIZE).get(position % Maze.SIZE).getWalls()[3]){
+            return;
+        }
+        update(position + Maze.SIZE);
     }
 
     private Drawable parseCell(Cell cell) {
