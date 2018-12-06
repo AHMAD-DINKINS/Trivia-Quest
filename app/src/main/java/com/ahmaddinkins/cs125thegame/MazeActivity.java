@@ -13,14 +13,17 @@ import android.support.v7.widget.GridLayout;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static com.ahmaddinkins.cs125thegame.Maze.maze;
 
 public class MazeActivity extends AppCompatActivity {
+    private Random random = new Random();
     private static final String TAG = "filtered";
     private GridLayout characterMazeGrid;
     private Drawable character;
     private int position;
+    private final int[] enemies = {R.drawable.slime, R.drawable.ghost, R.drawable.pyron};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +51,14 @@ public class MazeActivity extends AppCompatActivity {
                     characterImageView.setImageDrawable(character);
                     characterMazeGrid.addView(characterImageView, cell.getIndex());
                     position = cell.getIndex();
+                } else if (cell.getEnemy()) {
+                    ImageView enemyImageView = new ImageView(MazeActivity.this);
+                    enemyImageView.setImageDrawable(getDrawable(enemies[random.nextInt(enemies.length)]));
+                    characterMazeGrid.addView(enemyImageView, cell.getIndex());
                 } else {
-                    ImageView characterImageView = new ImageView(MazeActivity.this);
-                    characterImageView.setImageDrawable(getDrawable(R.drawable.clear));
-                    characterMazeGrid.addView(characterImageView, cell.getIndex());
+                    ImageView clearImageView = new ImageView(MazeActivity.this);
+                    clearImageView.setImageDrawable(getDrawable(R.drawable.clear));
+                    characterMazeGrid.addView(clearImageView, cell.getIndex());
                 }
             }
         }

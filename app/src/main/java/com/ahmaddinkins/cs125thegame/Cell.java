@@ -3,11 +3,14 @@ package com.ahmaddinkins.cs125thegame;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Nested class that represents the cells of a maze.
  */
 public class Cell  {
+    /** Random object for determining wether or not an enemy spawns*/
+    private Random random = new Random();
     /** x-coordinate of cell.*/
     private int x;
     /** y-coordinate of cell.*/
@@ -18,6 +21,8 @@ public class Cell  {
     private boolean[] walls = {true, true, true, true};
     /** neighboring cells.*/
     private ArrayList<Cell> neighbors;
+    /**Thee enemy within the cell*/
+    private boolean enemy = false;
     /**
      * Constuctor for Cells objects.
      * @param setX The row the cell is within.
@@ -65,6 +70,18 @@ public class Cell  {
      */
     boolean[] getWalls() {
         return walls;
+    }
+
+    /**
+     * Returns the enemy.
+     * @return boolean representing if an enemy has spawned.
+     */
+    boolean getEnemy() {
+        int spawnChance = random.nextInt(Maze.SIZE * Maze.SIZE);
+        if (spawnChance >= 0 && spawnChance <= 10) {
+            enemy = true;
+        }
+        return enemy;
     }
     /**
      * getter for the y coordinate
