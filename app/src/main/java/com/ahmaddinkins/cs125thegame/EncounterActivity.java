@@ -11,12 +11,29 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class EncounterActivity extends AppCompatActivity {
 
     private RadioGroup radioAnswerGroup;
     private RadioButton radioAnswer;
     private Button answerButton;
     private TextView result;
+    private TextView temp;
+    private RequestQueue requestQueue;
+    private RadioButton answerOne;
+    private RadioButton answerTwo;
+    private RadioButton answerThree;
+    private RadioButton answerFour;
+    private RadioButton[] answers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +41,24 @@ public class EncounterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_encounter);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        requestQueue = Volley.newRequestQueue(this);
+        temp = findViewById(R.id.questionView);
+        answerOne = findViewById(R.id.answerOne);
+        answerTwo = findViewById(R.id.answerTwo);
+        answerThree = findViewById(R.id.answerThree);
+        answerFour = findViewById(R.id.answerFour);
+
+        answers = new RadioButton[]{answerOne, answerTwo, answerThree, answerFour};
+
         result = findViewById(R.id.result);
         addListenerButton();
+
+        startAPICall();
     }
 
     public void addListenerButton() {
         radioAnswerGroup = findViewById(R.id.answerGroup);
         answerButton = findViewById(R.id.submitButton);
-
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,10 +87,56 @@ public class EncounterActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        Toast.makeText(this, "Back Button Disabled", Toast.LENGTH_SHORT).show();
+    public void startAPICall() {
+        try {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    "https://opentdb.com/api.php?amount=1&type=multiple",
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            parseJson(response);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    temp.setText(error.toString());
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    public void parseJson(JSONObject json) {
+        try {
+            String question = json.getJSONArray("results").getJSONObject(0).getString("question");
+            question = question.replaceAll("&quot;", "\"");
+            question = question.replaceAll("&#039;", "'");
+            temp.setText(question);
+            int correct = (int)(Math.random() * 4);
+            Integer incorrectNum = 0;
+            for (int i = 0; i < answers.length; i++) {
+                System.out.print(answers[i]);
+                if (i == correct) {
+                    answers[i].setText(json.getJSONArray("results").
+                            getJSONObject(0).getString("correct_answer"));
+                } else {
+                    answers[i].setText(json.getJSONArray("results").getJSONObject(0)
+                            .getJSONArray("incorrect_answers").getString(incorrectNum));
+                    incorrectNum = incorrectNum + 1;
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed(); Disabled back button
+        Toast.makeText(this, "Back Button Disabled", Toast.LENGTH_LONG).show();
+    }
 }

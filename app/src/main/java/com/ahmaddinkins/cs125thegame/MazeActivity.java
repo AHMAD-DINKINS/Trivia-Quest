@@ -17,6 +17,9 @@ import java.util.Random;
 
 import static com.ahmaddinkins.cs125thegame.Maze.maze;
 
+/**
+ * Class that will
+ */
 public class MazeActivity extends AppCompatActivity {
     private Random random = new Random();
     private GridLayout characterMazeGrid;
