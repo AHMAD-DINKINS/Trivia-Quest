@@ -23,7 +23,8 @@ public class Cell  {
     private ArrayList<Cell> neighbors;
     /**The enemy within the cell*/
     private boolean enemy = false;
-
+    /** The number of enemies on the map*/
+    public static int numEnemies = 0;
     /**
      * Constuctor for Cells objects.
      * @param setX The row the cell is within.
@@ -33,8 +34,9 @@ public class Cell  {
         x = setX;
         y = setY;
         int spawnChance = random.nextInt(Maze.SIZE * Maze.SIZE);
-        if (spawnChance >= 0 && spawnChance <= 10) {
+        if (spawnChance >= 0 && spawnChance <= 9) {
             enemy = true;
+            numEnemies++;
         }
     }
     /**
@@ -104,6 +106,7 @@ public class Cell  {
      */
     void markEnemy() {
         enemy = false;
+        numEnemies--;
     }
     /**Checks if the cell has been visited
     boolean isVisited() {

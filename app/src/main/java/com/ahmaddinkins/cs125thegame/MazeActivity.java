@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.support.v7.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,34 +19,43 @@ import static com.ahmaddinkins.cs125thegame.Maze.maze;
 
 public class MazeActivity extends AppCompatActivity {
     private Random random = new Random();
-    private static final String TAG = "filtered";
     private GridLayout characterMazeGrid;
-    private Drawable character;
+    private static Drawable character;
     private int position;
-    private final int[] enemies = {R.drawable.slime, R.drawable.ghost, R.drawable.pyron};
+    private static final int[] ENEMIES = {R.drawable.slime, R.drawable.ghost, R.drawable.pyron};
+    private static final int NUM_LEVELS = 5;
+    private static int currentLevel = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivityForResult(new Intent(MazeActivity.this, CharacterSelectionActivity.class), 1);
         setContentView(R.layout.activity_maze);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        if (character == null) {
+            startActivityForResult(new Intent(MazeActivity.this, CharacterSelectionActivity.class), 1);
+        } else {
+            GridLayout mazeGrid = findViewById(R.id.mazeGrid);
+            characterMazeGrid = findViewById(R.id.characterMazeGrid);
+            init(mazeGrid);
+        }
     }
 
     private void init(final GridLayout gridMaze) {
-        Log.i(TAG, "init");
         for(ArrayList<Cell> row : Maze.getMaze()) {
             for (Cell cell : row) {
                 ImageView imageView = new ImageView(MazeActivity.this);
                 imageView.setImageDrawable(parseCell(cell));
                 gridMaze.addView(imageView, cell.getIndex());
                 if (cell == Maze.start) {
+                    if (cell.getEnemy()) {
+                        cell.markEnemy();
+                    }
                     ImageView characterImageView = new ImageView(MazeActivity.this);
                     characterImageView.setBackground(character);
                     characterMazeGrid.addView(characterImageView, cell.getIndex());
                     position = cell.getIndex();
                 } else if (cell.getEnemy()) {
                     ImageView enemyImageView = new ImageView(MazeActivity.this);
-                    enemyImageView.setBackground(getDrawable(enemies[random.nextInt(enemies.length)]));
+                    enemyImageView.setBackground(getDrawable(ENEMIES[random.nextInt(ENEMIES.length)]));
                     characterMazeGrid.addView(enemyImageView, cell.getIndex());
                 } else {
                     ImageView clearImageView = new ImageView(MazeActivity.this);
@@ -60,20 +68,46 @@ public class MazeActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(TAG, "result");
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 character = getDrawable(data.getIntExtra("selectedCharacter", R.drawable.alien));
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 character = getDrawable(R.drawable.alien);
             }
+            GridLayout mazeGrid = findViewById(R.id.mazeGrid);
+            characterMazeGrid = findViewById(R.id.characterMazeGrid);
+            init(mazeGrid);
+        } else if (requestCode == 2) {
+            //Will decide what happens to player here
+            if (Cell.numEnemies == 0) {
+                currentLevel++;
+                if (currentLevel < NUM_LEVELS) {
+                    Toast.makeText(this, "Loading Next Maze...", Toast.LENGTH_LONG).show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(MazeActivity.this, MazeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }, 750);
+                } else {
+                    Toast.makeText(this, "You Win!!!", Toast.LENGTH_LONG).show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            finish();
+                        }
+                    }, 750);
+                }
+            }
         }
-        GridLayout mazeGrid = findViewById(R.id.mazeGrid);
-        characterMazeGrid = findViewById(R.id.characterMazeGrid);
-        init(mazeGrid);
     }
 
     private void update(final int newPosition) {
+
         boolean enemy = false;
         Cell newCell = null;
         for(ArrayList<Cell> row : maze) {
@@ -88,13 +122,12 @@ public class MazeActivity extends AppCompatActivity {
             }
         }
         if (enemy) {
-            startActivity(new Intent(MazeActivity.this, EncounterActivity.class));
+            startActivityForResult(new Intent(MazeActivity.this, EncounterActivity.class), 2);
             newCell.markEnemy();
         }
     }
 
     public void upClick(View view) {
-        Log.i(TAG, "upClick");
         if (maze.get(position / Maze.SIZE).get(position % Maze.SIZE).getWalls()[1]){
             return;
         }
@@ -102,7 +135,6 @@ public class MazeActivity extends AppCompatActivity {
     }
 
     public void rightClick(View view) {
-        Log.i(TAG, "rightClick");
         if (maze.get(position / Maze.SIZE).get(position % Maze.SIZE).getWalls()[2]){
             return;
         }
@@ -110,7 +142,6 @@ public class MazeActivity extends AppCompatActivity {
     }
 
     public void leftClick(View view) {
-        Log.i(TAG, "leftClick");
         if (maze.get(position / Maze.SIZE).get(position % Maze.SIZE).getWalls()[0]){
             return;
         }
@@ -118,7 +149,6 @@ public class MazeActivity extends AppCompatActivity {
     }
 
     public void downClick(View view) {
-        Log.i(TAG, "downClick");
         if (maze.get(position / Maze.SIZE).get(position % Maze.SIZE).getWalls()[3]){
             return;
         }
@@ -161,7 +191,7 @@ public class MazeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
+        //super.onBackPressed(); Commented to disable what normally happens when back button is pressed.
         Toast.makeText(this, "Back Button Disabled", Toast.LENGTH_SHORT).show();
     }
 }

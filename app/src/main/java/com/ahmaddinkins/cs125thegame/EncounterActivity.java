@@ -1,6 +1,5 @@
 package com.ahmaddinkins.cs125thegame;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,10 +9,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.util.Log;
 import android.widget.Toast;
-
-import java.util.Timer;
 
 public class EncounterActivity extends AppCompatActivity {
 
