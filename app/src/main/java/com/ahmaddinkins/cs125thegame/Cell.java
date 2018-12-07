@@ -21,8 +21,9 @@ public class Cell  {
     private boolean[] walls = {true, true, true, true};
     /** neighboring cells.*/
     private ArrayList<Cell> neighbors;
-    /**Thee enemy within the cell*/
+    /**The enemy within the cell*/
     private boolean enemy = false;
+
     /**
      * Constuctor for Cells objects.
      * @param setX The row the cell is within.
@@ -31,6 +32,10 @@ public class Cell  {
     Cell(final int setX, final int setY) {
         x = setX;
         y = setY;
+        int spawnChance = random.nextInt(Maze.SIZE * Maze.SIZE);
+        if (spawnChance >= 0 && spawnChance <= 10) {
+            enemy = true;
+        }
     }
     /**
      * Function that finds all of the horizontal and adjacent neighboring cells.
@@ -77,10 +82,6 @@ public class Cell  {
      * @return boolean representing if an enemy has spawned.
      */
     boolean getEnemy() {
-        int spawnChance = random.nextInt(Maze.SIZE * Maze.SIZE);
-        if (spawnChance >= 0 && spawnChance <= 10) {
-            enemy = true;
-        }
         return enemy;
     }
     /**

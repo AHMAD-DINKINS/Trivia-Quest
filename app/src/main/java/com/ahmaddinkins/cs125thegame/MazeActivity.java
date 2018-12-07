@@ -30,13 +30,6 @@ public class MazeActivity extends AppCompatActivity {
         startActivityForResult(new Intent(MazeActivity.this, CharacterSelectionActivity.class), 1);
         setContentView(R.layout.activity_maze);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        Button button = findViewById(R.id.button1);
-        button.setOnClickListener(new Button.OnClickListener(){
-            public void onClick(View v){
-                startActivity(new Intent(MazeActivity.this, EncounterActivity.class));
-            }
-        });
     }
 
     private void init(final GridLayout gridMaze) {
@@ -48,16 +41,16 @@ public class MazeActivity extends AppCompatActivity {
                 gridMaze.addView(imageView, cell.getIndex());
                 if (cell == Maze.start) {
                     ImageView characterImageView = new ImageView(MazeActivity.this);
-                    characterImageView.setImageDrawable(character);
+                    characterImageView.setBackground(character);
                     characterMazeGrid.addView(characterImageView, cell.getIndex());
                     position = cell.getIndex();
                 } else if (cell.getEnemy()) {
                     ImageView enemyImageView = new ImageView(MazeActivity.this);
-                    enemyImageView.setImageDrawable(getDrawable(enemies[random.nextInt(enemies.length)]));
+                    enemyImageView.setBackground(getDrawable(enemies[random.nextInt(enemies.length)]));
                     characterMazeGrid.addView(enemyImageView, cell.getIndex());
                 } else {
                     ImageView clearImageView = new ImageView(MazeActivity.this);
-                    clearImageView.setImageDrawable(getDrawable(R.drawable.clear));
+                    clearImageView.setBackground(getDrawable(R.drawable.clear));
                     characterMazeGrid.addView(clearImageView, cell.getIndex());
                 }
             }
@@ -80,19 +73,19 @@ public class MazeActivity extends AppCompatActivity {
     }
 
     private void update(final int newPosition) {
+        boolean enemy = false;
         for(ArrayList<Cell> row : maze) {
             for (Cell cell : row) {
                 if (cell.getIndex() == newPosition) {
-                    ImageView characterImageView = new ImageView(MazeActivity.this);
-                    characterImageView.setImageDrawable(character);
-                    characterMazeGrid.addView(characterImageView, cell.getIndex());
+                    enemy = cell.getEnemy();
+                    characterMazeGrid.getChildAt(position).setBackground(getDrawable(R.drawable.clear));
+                    characterMazeGrid.getChildAt(cell.getIndex()).setBackground(character);
                     position = newPosition;
-                } else {
-                    ImageView characterImageView = new ImageView(MazeActivity.this);
-                    characterImageView.setImageDrawable(getDrawable(R.drawable.clear));
-                    characterMazeGrid.addView(characterImageView, cell.getIndex());
                 }
             }
+        }
+        if (enemy) {
+            startActivity(new Intent(MazeActivity.this, EncounterActivity.class));
         }
     }
 
