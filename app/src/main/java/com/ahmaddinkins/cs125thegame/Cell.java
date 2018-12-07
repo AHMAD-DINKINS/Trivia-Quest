@@ -98,6 +98,13 @@ public class Cell  {
     boolean isVisited() {
         return visited;
     }
+
+    /**
+     * Method used to mark that an enemy has been defeated.
+     */
+    void markEnemy() {
+        enemy = false;
+    }
     /**Checks if the cell has been visited
     boolean isVisited() {
         return visited;

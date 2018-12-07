@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -74,9 +75,11 @@ public class MazeActivity extends AppCompatActivity {
 
     private void update(final int newPosition) {
         boolean enemy = false;
+        Cell newCell = null;
         for(ArrayList<Cell> row : maze) {
             for (Cell cell : row) {
                 if (cell.getIndex() == newPosition) {
+                    newCell = cell;
                     enemy = cell.getEnemy();
                     characterMazeGrid.getChildAt(position).setBackground(getDrawable(R.drawable.clear));
                     characterMazeGrid.getChildAt(cell.getIndex()).setBackground(character);
@@ -86,6 +89,7 @@ public class MazeActivity extends AppCompatActivity {
         }
         if (enemy) {
             startActivity(new Intent(MazeActivity.this, EncounterActivity.class));
+            newCell.markEnemy();
         }
     }
 
@@ -153,5 +157,11 @@ public class MazeActivity extends AppCompatActivity {
                 return getDrawable(R.drawable.top_right_bottom);
         }
         return getDrawable(R.drawable.fail);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Toast.makeText(this, "Back Button Disabled", Toast.LENGTH_SHORT).show();
     }
 }

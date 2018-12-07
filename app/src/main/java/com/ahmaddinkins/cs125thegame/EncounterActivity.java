@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Timer;
 
@@ -61,6 +62,12 @@ public class EncounterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Toast.makeText(this, "Back Button Disabled", Toast.LENGTH_SHORT).show();
     }
 
 }
