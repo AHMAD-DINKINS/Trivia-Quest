@@ -34,6 +34,7 @@ public class EncounterActivity extends AppCompatActivity {
     private RadioButton answerThree;
     private RadioButton answerFour;
     private RadioButton[] answers;
+    private String correctAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class EncounterActivity extends AppCompatActivity {
 
                 radioAnswer = (RadioButton) findViewById(answerId);
 
-                if (radioAnswer.getText().equals("1")) {
+                if (radioAnswer.getText().equals(correctAnswer)) {
                     result.setText("Correct");
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -121,11 +122,17 @@ public class EncounterActivity extends AppCompatActivity {
             for (int i = 0; i < answers.length; i++) {
                 System.out.print(answers[i]);
                 if (i == correct) {
-                    answers[i].setText(json.getJSONArray("results").
-                            getJSONObject(0).getString("correct_answer"));
+                    correctAnswer = json.getJSONArray("results").
+                            getJSONObject(0).getString("correct_answer");
+                    correctAnswer = correctAnswer.replaceAll("&quot;", "\"");
+                    correctAnswer = correctAnswer.replaceAll("&#039;", "'");
+                    answers[i].setText(correctAnswer);
                 } else {
-                    answers[i].setText(json.getJSONArray("results").getJSONObject(0)
-                            .getJSONArray("incorrect_answers").getString(incorrectNum));
+                    String incorrectAnswer = json.getJSONArray("results").getJSONObject(0)
+                            .getJSONArray("incorrect_answers").getString(incorrectNum);
+                    incorrectAnswer = incorrectAnswer.replaceAll("&quot;", "\"");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&#039;", "'");
+                    answers[i].setText(incorrectAnswer);
                     incorrectNum = incorrectNum + 1;
                 }
             }

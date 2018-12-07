@@ -83,7 +83,7 @@
         android:contentDescription="@string/app_name"
         android:gravity="center"
         android:text="this_is_the_question"
-        android:textSize="36sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/answerGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
