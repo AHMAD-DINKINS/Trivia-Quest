@@ -9,8 +9,6 @@ import java.util.Random;
  * Nested class that represents the cells of a maze.
  */
 public class Cell  {
-    /** Random object for determining wether or not an enemy spawns*/
-    private Random random = new Random();
     /** x-coordinate of cell.*/
     private int x;
     /** y-coordinate of cell.*/
@@ -24,7 +22,7 @@ public class Cell  {
     /**The enemy within the cell*/
     private boolean enemy = false;
     /** The number of enemies on the map*/
-    public static int numEnemies = 0;
+    static int numEnemies = 0;
     /**
      * Constuctor for Cells objects.
      * @param setX The row the cell is within.
@@ -33,6 +31,8 @@ public class Cell  {
     Cell(final int setX, final int setY) {
         x = setX;
         y = setY;
+        /* Random object for determining wether or not an enemy spawns*/
+        Random random = new Random();
         int spawnChance = random.nextInt(Maze.SIZE * Maze.SIZE);
         if (spawnChance >= 0 && spawnChance <= 9) {
             enemy = true;

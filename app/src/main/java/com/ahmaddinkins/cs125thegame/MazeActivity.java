@@ -82,7 +82,7 @@ public class MazeActivity extends AppCompatActivity {
             if (Cell.numEnemies == 0) {
                 currentLevel++;
                 if (currentLevel < NUM_LEVELS) {
-                    Toast.makeText(this, "Loading Next Maze...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Loading Next Maze...", Toast.LENGTH_SHORT).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -91,8 +91,9 @@ public class MazeActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
-                    }, 750);
+                    }, 1000);
                 } else {
+                    currentLevel = 0;
                     Toast.makeText(this, "You Win!!!", Toast.LENGTH_LONG).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
