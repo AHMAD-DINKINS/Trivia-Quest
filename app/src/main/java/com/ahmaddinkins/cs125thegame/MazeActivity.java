@@ -128,7 +128,7 @@ public class MazeActivity extends AppCompatActivity {
                 } else {
                     currentLevel = 0;
                     character = null;
-                    health = 20;
+                    health = 30;
                     Toast.makeText(this, "You Win!!!", Toast.LENGTH_LONG).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
