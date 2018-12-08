@@ -22,6 +22,9 @@ public class Cell  {
     private ArrayList<Cell> neighbors;
     /**The enemy within the cell*/
     private boolean enemy = false;
+    /**The boss if there is one*/
+    public static boolean boss = false;
+    private boolean isBoss;
     /** The number of enemies on the map*/
     static int numEnemies = 0;
     /**
@@ -38,6 +41,13 @@ public class Cell  {
         if (spawnChance >= 0 && spawnChance <= 9) {
             enemy = true;
             numEnemies++;
+        }
+        if (enemy && !boss) {
+            spawnChance = random.nextInt(10);
+            if (spawnChance == 0) {
+                boss = true;
+                isBoss = true;
+            }
         }
     }
     /**
@@ -79,7 +89,13 @@ public class Cell  {
     boolean[] getWalls() {
         return walls;
     }
-
+    /**
+     * Return is this cell is a boss.
+     * @return The boss status
+     */
+    boolean getBoss() {
+        return isBoss;
+    }
     /**
      * Returns the enemy.
      * @return boolean representing if an enemy has spawned.
@@ -147,7 +163,6 @@ public class Cell  {
         }
         return output.toString();
     }
-
     int getImageId() {
         return imageId;
     }
