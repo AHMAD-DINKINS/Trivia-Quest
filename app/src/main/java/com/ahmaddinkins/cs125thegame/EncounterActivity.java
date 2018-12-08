@@ -1,5 +1,7 @@
 package com.ahmaddinkins.cs125thegame;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -89,6 +91,9 @@ public class EncounterActivity extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            Intent result = new Intent();
+                            result.putExtra("damage", damage);
+                            setResult(Activity.RESULT_OK, result);
                             finish();
                         }
                     }, 250);
