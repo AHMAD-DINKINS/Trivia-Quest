@@ -31,7 +31,7 @@ public class MazeActivity extends AppCompatActivity {
     private static final int[] ENEMIES = {R.drawable.slime, R.drawable.ghost, R.drawable.pyron};
     private static final int NUM_LEVELS = 5;
     private static int currentLevel = 0;
-    private static int health = 20;
+    private static int health = 30;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,9 +96,23 @@ public class MazeActivity extends AppCompatActivity {
             init(mazeGrid);
         } else if (requestCode == 2) {
             health -= data.getIntExtra("damage", 0);
+            if (health <= 0) {
+                health = 0;
+            }
             healthView.setText("Health: " + health);
-            //Will decide what happens to player here
-            if (Cell.numEnemies == 0) {
+            if (health == 0) {
+                currentLevel = 0;
+                character = null;
+                health = 30;
+                Toast.makeText(this, "You Lose...", Toast.LENGTH_LONG).show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 750);
+            } else if (Cell.numEnemies == 0) {
                 currentLevel++;
                 if (currentLevel < NUM_LEVELS) {
                     Toast.makeText(this, "Loading Next Maze...", Toast.LENGTH_SHORT).show();
