@@ -101,7 +101,7 @@ public class EncounterActivity extends AppCompatActivity {
     public void startAPICall() {
         try {
             String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple";
-            String url2 = "https://opentdb.com/api.php?amount=1&category=30&type=multiple";
+            String url2 = "https://opentdb.com/api.php?amount=1&category=19&type=multiple";
             String url3 = "https://opentdb.com/api.php?amount=1&category=31&type=multiple";
             int category = (int)(Math.random() * 3);
             if (category == 1) {
@@ -109,7 +109,7 @@ public class EncounterActivity extends AppCompatActivity {
             } else if (category == 2) {
                 url = url3;
             }
-            
+
             if (MazeActivity.currentLevel == 0) {
                 url += "&difficulty=easy";
             } else if (MazeActivity.currentLevel == 1) {
