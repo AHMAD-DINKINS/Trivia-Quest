@@ -22,6 +22,8 @@ import static com.ahmaddinkins.cs125thegame.Maze.maze;
  * Class that will
  */
 public class MazeActivity extends AppCompatActivity {
+    private static final int NOT_BOSS = 0;
+    private static final int BOSS = 1;
     private Random random = new Random();
     private GridLayout characterMazeGrid;
     private TextView healthView;
@@ -66,7 +68,12 @@ public class MazeActivity extends AppCompatActivity {
                     position = cell.getIndex();
                 } else if (cell.getEnemy()) {
                     ImageView enemyImageView = new ImageView(MazeActivity.this);
-                    int selectedEnemy = ENEMIES[random.nextInt(ENEMIES.length)];
+                    int selectedEnemy;
+                    if (!cell.getBoss()) {
+                        selectedEnemy = ENEMIES[random.nextInt(ENEMIES.length)];
+                    } else {
+                        selectedEnemy = R.drawable.geoffry;
+                    }
                     cell.setImageId(selectedEnemy);
                     enemyImageView.setBackground(getDrawable(selectedEnemy));
                     characterMazeGrid.addView(enemyImageView, cell.getIndex());
@@ -170,6 +177,11 @@ public class MazeActivity extends AppCompatActivity {
         if (enemy) {
             Intent encounter = new Intent(MazeActivity.this, EncounterActivity.class);
             encounter.putExtra("enemyImage", newCell.getImageId());
+            if (newCell.getBoss()) {
+                encounter.putExtra("boss", BOSS);
+            } else {
+                encounter.putExtra("boss", NOT_BOSS);
+            }
             startActivityForResult(encounter, 2);
             newCell.markEnemy();
         }
