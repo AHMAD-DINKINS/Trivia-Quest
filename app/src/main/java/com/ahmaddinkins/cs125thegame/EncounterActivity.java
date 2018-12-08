@@ -100,9 +100,17 @@ public class EncounterActivity extends AppCompatActivity {
 
     public void startAPICall() {
         try {
+            String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple";
+            if (MazeActivity.currentLevel == 0) {
+                url += "&difficulty=easy";
+            } else if (MazeActivity.currentLevel == 1) {
+                url += "&difficulty=medium";
+            } else {
+                url += "&difficulty=hard";
+            }
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "https://opentdb.com/api.php?amount=1&category=18&type=multiple",
+                    url,
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
