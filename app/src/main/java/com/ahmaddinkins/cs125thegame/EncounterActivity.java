@@ -34,6 +34,7 @@ public class EncounterActivity extends AppCompatActivity {
     private RadioButton[] answers;
     private String correctAnswer;
     private int damage;
+    private int health;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class EncounterActivity extends AppCompatActivity {
         Bundle extraData = getIntent().getExtras();
         int enemyId = extraData.getInt("enemyImage");
         enemyAvatar.setImageDrawable(getDrawable(enemyId));
+        health = 1;
 
         answers = new RadioButton[]{answerOne, answerTwo, answerThree, answerFour};
 
@@ -80,6 +82,11 @@ public class EncounterActivity extends AppCompatActivity {
 
                 if (radioAnswer.getText().equals(correctAnswer)) {
                     result.setText(getString(R.string.correct_answer));
+                    health--;
+                    if (health != 0) {
+                        startAPICall();
+                        return;
+                    }
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
