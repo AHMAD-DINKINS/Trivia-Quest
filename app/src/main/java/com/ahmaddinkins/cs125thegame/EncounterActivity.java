@@ -55,7 +55,11 @@ public class EncounterActivity extends AppCompatActivity {
         Bundle extraData = getIntent().getExtras();
         int enemyId = extraData.getInt("enemyImage");
         enemyAvatar.setImageDrawable(getDrawable(enemyId));
-        health = 1;
+        if (extraData.getInt("boss") == 0) {
+            health = 1;
+        } else {
+            health = 5;
+        }
 
         answers = new RadioButton[]{answerOne, answerTwo, answerThree, answerFour};
 
@@ -83,7 +87,7 @@ public class EncounterActivity extends AppCompatActivity {
                 if (radioAnswer.getText().equals(correctAnswer)) {
                     result.setText(getString(R.string.correct_answer));
                     health--;
-                    if (health != 0) {
+                    if (health > 0) {
                         startAPICall();
                         return;
                     }
