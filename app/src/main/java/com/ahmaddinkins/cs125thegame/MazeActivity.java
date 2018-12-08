@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.support.v7.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,11 +24,14 @@ import static com.ahmaddinkins.cs125thegame.Maze.maze;
 public class MazeActivity extends AppCompatActivity {
     private Random random = new Random();
     private GridLayout characterMazeGrid;
+    private TextView healthView;
+    private TextView levelView;
     private static Drawable character;
     private int position;
     private static final int[] ENEMIES = {R.drawable.slime, R.drawable.ghost, R.drawable.pyron};
     private static final int NUM_LEVELS = 5;
     private static int currentLevel = 0;
+    private static int health = 20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,10 @@ public class MazeActivity extends AppCompatActivity {
         } else {
             GridLayout mazeGrid = findViewById(R.id.mazeGrid);
             characterMazeGrid = findViewById(R.id.characterMazeGrid);
+            healthView = findViewById(R.id.healthView);
+            healthView.setText("Health: " + health);
+            levelView = findViewById(R.id.levelView);
+            levelView.setText("Level: " + currentLevel);
             init(mazeGrid);
         }
     }
@@ -81,8 +89,14 @@ public class MazeActivity extends AppCompatActivity {
             }
             GridLayout mazeGrid = findViewById(R.id.mazeGrid);
             characterMazeGrid = findViewById(R.id.characterMazeGrid);
+            healthView = findViewById(R.id.healthView);
+            healthView.setText("Health: " + health);
+            levelView = findViewById(R.id.levelView);
+            levelView.setText("Level: " + currentLevel);
             init(mazeGrid);
         } else if (requestCode == 2) {
+            health -= data.getIntExtra("damage", 0);
+            healthView.setText("Health: " + health);
             //Will decide what happens to player here
             if (Cell.numEnemies == 0) {
                 currentLevel++;
@@ -100,6 +114,7 @@ public class MazeActivity extends AppCompatActivity {
                 } else {
                     currentLevel = 0;
                     character = null;
+                    health = 20;
                     Toast.makeText(this, "You Win!!!", Toast.LENGTH_LONG).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {

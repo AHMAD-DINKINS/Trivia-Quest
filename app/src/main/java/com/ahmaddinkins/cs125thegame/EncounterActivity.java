@@ -28,19 +28,12 @@ public class EncounterActivity extends AppCompatActivity {
 
     private RadioGroup radioAnswerGroup;
     private RadioButton radioAnswer;
-    private Button answerButton;
     private TextView result;
     private TextView temp;
     private RequestQueue requestQueue;
-    private RadioButton answerOne;
-    private RadioButton answerTwo;
-    private RadioButton answerThree;
-    private RadioButton answerFour;
     private RadioButton[] answers;
     private String correctAnswer;
     private int damage;
-    private ImageView characterAvatar;
-    private ImageView enemyAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +43,13 @@ public class EncounterActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
         temp = findViewById(R.id.questionView);
-        answerOne = findViewById(R.id.answerOne);
-        answerTwo = findViewById(R.id.answerTwo);
-        answerThree = findViewById(R.id.answerThree);
-        answerFour = findViewById(R.id.answerFour);
+        RadioButton answerOne = findViewById(R.id.answerOne);
+        RadioButton answerTwo = findViewById(R.id.answerTwo);
+        RadioButton answerThree = findViewById(R.id.answerThree);
+        RadioButton answerFour = findViewById(R.id.answerFour);
         damage = 0;
-        characterAvatar = findViewById(R.id.characterAvatar);
-        enemyAvatar = findViewById(R.id.enemyAvatar);
+        ImageView characterAvatar = findViewById(R.id.characterAvatar);
+        ImageView enemyAvatar = findViewById(R.id.enemyAvatar);
         characterAvatar.setImageDrawable(MazeActivity.getCharacter());
         Bundle extraData = getIntent().getExtras();
         int enemyId = extraData.getInt("enemyImage");
@@ -72,21 +65,21 @@ public class EncounterActivity extends AppCompatActivity {
 
     public void addListenerButton() {
         radioAnswerGroup = findViewById(R.id.answerGroup);
-        answerButton = findViewById(R.id.submitButton);
+        Button answerButton = findViewById(R.id.submitButton);
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int answerId = radioAnswerGroup.getCheckedRadioButtonId();
 
                 if (answerId == -1) {
-                    result.setText("Select an answer.");
+                    result.setText(getString(R.string.no_answer));
                     return;
                 }
 
-                radioAnswer = (RadioButton) findViewById(answerId);
+                radioAnswer = findViewById(answerId);
 
                 if (radioAnswer.getText().equals(correctAnswer)) {
-                    result.setText("Correct");
+                    result.setText(getString(R.string.correct_answer));
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -98,7 +91,7 @@ public class EncounterActivity extends AppCompatActivity {
                         }
                     }, 250);
                 } else {
-                    result.setText("Incorrect");
+                    result.setText(getString(R.string.wrong_answer));
                     damage++;
                 }
             }
