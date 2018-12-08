@@ -150,6 +150,7 @@ public class EncounterActivity extends AppCompatActivity {
             String question = json.getJSONArray("results").getJSONObject(0).getString("question");
             question = question.replaceAll("&quot;", "\"");
             question = question.replaceAll("&#039;", "'");
+            question = question.replaceAll("&pi;", "pi");
             temp.setText(question);
             int correct = (int)(Math.random() * 4);
             Integer incorrectNum = 0;
