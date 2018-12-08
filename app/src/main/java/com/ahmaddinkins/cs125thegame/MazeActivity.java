@@ -101,17 +101,20 @@ public class MazeActivity extends AppCompatActivity {
             }
             healthView.setText("Health: " + health);
             if (health == 0) {
-                currentLevel = 0;
-                character = null;
-                health = 30;
                 Toast.makeText(this, "You Lose...", Toast.LENGTH_LONG).show();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        Intent ending = new Intent(MazeActivity.this, EndingActivity.class);
+                        ending.putExtra("health", 0);
+                        startActivity(ending);
                         finish();
                     }
                 }, 750);
+                currentLevel = 0;
+                character = null;
+                health = 30;
             } else if (Cell.numEnemies == 0) {
                 currentLevel++;
                 if (currentLevel < NUM_LEVELS) {
@@ -126,17 +129,20 @@ public class MazeActivity extends AppCompatActivity {
                         }
                     }, 1000);
                 } else {
-                    currentLevel = 0;
-                    character = null;
-                    health = 30;
                     Toast.makeText(this, "You Win!!!", Toast.LENGTH_LONG).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            Intent ending = new Intent(MazeActivity.this, EndingActivity.class);
+                            ending.putExtra("health", health);
+                            startActivity(ending);
                             finish();
                         }
                     }, 750);
+                    currentLevel = 0;
+                    character = null;
+                    health = 30;
                 }
             }
         }

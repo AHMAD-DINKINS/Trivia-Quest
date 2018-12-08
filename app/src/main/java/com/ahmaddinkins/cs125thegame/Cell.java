@@ -148,11 +148,11 @@ public class Cell  {
         return output.toString();
     }
 
-    public int getImageId() {
+    int getImageId() {
         return imageId;
     }
 
-    public void setImageId(int imageId) {
+    void setImageId(int imageId) {
         this.imageId = imageId;
     }
 }

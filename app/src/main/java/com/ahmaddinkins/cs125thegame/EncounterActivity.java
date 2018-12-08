@@ -144,12 +144,16 @@ public class EncounterActivity extends AppCompatActivity {
                             getJSONObject(0).getString("correct_answer");
                     correctAnswer = correctAnswer.replaceAll("&quot;", "\"");
                     correctAnswer = correctAnswer.replaceAll("&#039;", "'");
+                    correctAnswer = correctAnswer.replaceAll("&lt;", "<");
+                    correctAnswer = correctAnswer .replaceAll("&l62", ">");
                     answers[i].setText(correctAnswer);
                 } else {
                     String incorrectAnswer = json.getJSONArray("results").getJSONObject(0)
                             .getJSONArray("incorrect_answers").getString(incorrectNum);
                     incorrectAnswer = incorrectAnswer.replaceAll("&quot;", "\"");
                     incorrectAnswer = incorrectAnswer.replaceAll("&#039;", "'");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&lt;", "<");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&l62", ">");
                     answers[i].setText(incorrectAnswer);
                     incorrectNum = incorrectNum + 1;
                 }
