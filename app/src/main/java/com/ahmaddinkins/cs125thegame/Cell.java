@@ -15,6 +15,7 @@ public class Cell  {
     private int y;
     /** visited state of cell.*/
     private boolean visited;
+    private int imageId = -1;
     /** walls of cell.*/
     private boolean[] walls = {true, true, true, true};
     /** neighboring cells.*/
@@ -145,5 +146,13 @@ public class Cell  {
             }
         }
         return output.toString();
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 }

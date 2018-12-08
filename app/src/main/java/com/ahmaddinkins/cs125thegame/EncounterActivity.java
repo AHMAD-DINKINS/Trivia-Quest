@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -35,6 +36,9 @@ public class EncounterActivity extends AppCompatActivity {
     private RadioButton answerFour;
     private RadioButton[] answers;
     private String correctAnswer;
+    private int damage;
+    private ImageView characterAvatar;
+    private ImageView enemyAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,13 @@ public class EncounterActivity extends AppCompatActivity {
         answerTwo = findViewById(R.id.answerTwo);
         answerThree = findViewById(R.id.answerThree);
         answerFour = findViewById(R.id.answerFour);
+        damage = 0;
+        characterAvatar = findViewById(R.id.characterAvatar);
+        enemyAvatar = findViewById(R.id.enemyAvatar);
+        characterAvatar.setImageDrawable(MazeActivity.getCharacter());
+        Bundle extraData = getIntent().getExtras();
+        int enemyId = extraData.getInt("enemyImage");
+        enemyAvatar.setImageDrawable(getDrawable(enemyId));
 
         answers = new RadioButton[]{answerOne, answerTwo, answerThree, answerFour};
 
@@ -83,6 +94,7 @@ public class EncounterActivity extends AppCompatActivity {
                     }, 250);
                 } else {
                     result.setText("Incorrect");
+                    damage++;
                 }
             }
         });
@@ -92,7 +104,7 @@ public class EncounterActivity extends AppCompatActivity {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "https://opentdb.com/api.php?amount=1&type=multiple",
+                    "https://opentdb.com/api.php?amount=1&category=18&type=multiple",
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override

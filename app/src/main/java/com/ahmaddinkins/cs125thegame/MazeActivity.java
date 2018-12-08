@@ -58,7 +58,9 @@ public class MazeActivity extends AppCompatActivity {
                     position = cell.getIndex();
                 } else if (cell.getEnemy()) {
                     ImageView enemyImageView = new ImageView(MazeActivity.this);
-                    enemyImageView.setBackground(getDrawable(ENEMIES[random.nextInt(ENEMIES.length)]));
+                    int selectedEnemy = ENEMIES[random.nextInt(ENEMIES.length)];
+                    cell.setImageId(selectedEnemy);
+                    enemyImageView.setBackground(getDrawable(selectedEnemy));
                     characterMazeGrid.addView(enemyImageView, cell.getIndex());
                 } else {
                     ImageView clearImageView = new ImageView(MazeActivity.this);
@@ -110,6 +112,10 @@ public class MazeActivity extends AppCompatActivity {
         }
     }
 
+    public static Drawable getCharacter() {
+        return character;
+    }
+
     private void update(final int newPosition) {
 
         boolean enemy = false;
@@ -126,7 +132,9 @@ public class MazeActivity extends AppCompatActivity {
             }
         }
         if (enemy) {
-            startActivityForResult(new Intent(MazeActivity.this, EncounterActivity.class), 2);
+            Intent encounter = new Intent(MazeActivity.this, EncounterActivity.class);
+            encounter.putExtra("enemyImage", newCell.getImageId());
+            startActivityForResult(encounter, 2);
             newCell.markEnemy();
         }
     }
