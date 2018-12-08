@@ -31,7 +31,7 @@ public class MazeActivity extends AppCompatActivity {
     private static Drawable character;
     private int position;
     private static final int[] ENEMIES = {R.drawable.slime, R.drawable.ghost, R.drawable.pyron};
-    private static final int NUM_LEVELS = 1;
+    static final int NUM_LEVELS = 3;
     static int currentLevel = 0;
     private static int health = 30;
     @Override

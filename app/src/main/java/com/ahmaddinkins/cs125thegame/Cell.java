@@ -42,7 +42,7 @@ public class Cell  {
             enemy = true;
             numEnemies++;
         }
-        if (enemy && !boss) {
+        if (enemy && !boss && MazeActivity.currentLevel == MazeActivity.NUM_LEVELS - 1) {
             spawnChance = random.nextInt(10);
             if (spawnChance == 0) {
                 boss = true;
