@@ -36,6 +36,7 @@ public class MazeActivity extends AppCompatActivity {
     private static int health = 30;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Cell.numEnemies = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maze);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -252,6 +253,6 @@ public class MazeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed(); Commented to disable what normally happens when back button is pressed.
-        Toast.makeText(this, "Back Button Disabled", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Cannot go back.", Toast.LENGTH_SHORT).show();
     }
 }

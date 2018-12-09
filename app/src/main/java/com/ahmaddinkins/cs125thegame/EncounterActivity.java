@@ -206,6 +206,6 @@ public class EncounterActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed(); Disabled back button
-        Toast.makeText(this, "Back Button Disabled", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Cannot go back.", Toast.LENGTH_LONG).show();
     }
 }
