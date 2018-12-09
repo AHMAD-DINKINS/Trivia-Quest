@@ -71,7 +71,7 @@ public class Maze {
             generate(next, stack);
             return;
         }
-        Cell next = nextPossibleCells.get(random.nextInt(nextPossibleCells.size() - 1));
+        Cell next = nextPossibleCells.get((int) (Math.random() * nextPossibleCells.size()));//random.nextInt(nextPossibleCells.size() - 1));
         next.setVisited();
         stack.add(next);
         cell.getWalls()[cell.getNeighbors().indexOf(next)] = false;

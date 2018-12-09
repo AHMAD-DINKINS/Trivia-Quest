@@ -23,7 +23,6 @@ public class Cell  {
     /**The enemy within the cell*/
     private boolean enemy = false;
     /**The boss if there is one*/
-    public static boolean boss = false;
     private boolean isBoss;
     /** The number of enemies on the map*/
     static int numEnemies = 0;
@@ -42,12 +41,12 @@ public class Cell  {
             enemy = true;
             numEnemies++;
         }
-        if (enemy && !boss && MazeActivity.currentLevel == MazeActivity.NUM_LEVELS - 1) {
-            spawnChance = random.nextInt(10);
-            if (spawnChance == 0) {
-                boss = true;
-                isBoss = true;
+        if (setY == 99 && MazeActivity.currentLevel == MazeActivity.NUM_LEVELS - 1) {
+            if (!enemy) {
+                enemy = true;
+                numEnemies++;
             }
+            isBoss = true;
         }
     }
     /**

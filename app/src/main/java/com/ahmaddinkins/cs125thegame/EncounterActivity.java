@@ -154,8 +154,14 @@ public class EncounterActivity extends AppCompatActivity {
             String question = json.getJSONArray("results").getJSONObject(0).getString("question");
             question = question.replaceAll("&quot;", "\"");
             question = question.replaceAll("&#039;", "'");
+            question = question.replaceAll("&lt;", "<");
+            question = question.replaceAll("&gt;", ">");
+            question = question.replaceAll("&!", "!");
             question = question.replaceAll("&pi;", "\u03C0");
+            question = question.replaceAll("&eacute;", "\u00E9");
             question = question.replaceAll("&Eacute;", "\u00C9");
+            question = question.replaceAll("&Delta;", "\u0394");
+            question = question.replaceAll("&amp;", "&");
             temp.setText(question);
             int correct = (int)(Math.random() * 4);
             Integer incorrectNum = 0;
@@ -167,7 +173,13 @@ public class EncounterActivity extends AppCompatActivity {
                     correctAnswer = correctAnswer.replaceAll("&quot;", "\"");
                     correctAnswer = correctAnswer.replaceAll("&#039;", "'");
                     correctAnswer = correctAnswer.replaceAll("&lt;", "<");
-                    correctAnswer = correctAnswer .replaceAll("&l62", ">");
+                    correctAnswer = correctAnswer.replaceAll("&gt;", ">");
+                    correctAnswer = correctAnswer.replaceAll("&!", "!");
+                    correctAnswer = correctAnswer.replaceAll("&pi;", "\u03C0");
+                    correctAnswer = correctAnswer.replaceAll("&eacute;", "\u00E9");
+                    correctAnswer = correctAnswer.replaceAll("&Eacute;", "\u00C9");
+                    correctAnswer = correctAnswer.replaceAll("&Delta;", "\u0394");
+                    correctAnswer = correctAnswer.replaceAll("&amp;", "&");
                     answers[i].setText(correctAnswer);
                 } else {
                     String incorrectAnswer = json.getJSONArray("results").getJSONObject(0)
@@ -175,7 +187,13 @@ public class EncounterActivity extends AppCompatActivity {
                     incorrectAnswer = incorrectAnswer.replaceAll("&quot;", "\"");
                     incorrectAnswer = incorrectAnswer.replaceAll("&#039;", "'");
                     incorrectAnswer = incorrectAnswer.replaceAll("&lt;", "<");
-                    incorrectAnswer = incorrectAnswer.replaceAll("&l62", ">");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&gt;", ">");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&!", "!");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&pi;", "\u03C0");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&eacute;", "\u00E9");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&Eacute;", "\u00C9");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&Delta;", "\u0394");
+                    incorrectAnswer = incorrectAnswer.replaceAll("&amp;", "&");
                     answers[i].setText(incorrectAnswer);
                     incorrectNum = incorrectNum + 1;
                 }
