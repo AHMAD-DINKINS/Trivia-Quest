@@ -24,4 +24,8 @@ public class MainActivity extends AppCompatActivity {
     public void instructions(View view) {
         startActivity(new Intent(MainActivity.this, InstructionsActivity.class));
     }
+
+    public void credits(View view) {
+        startActivity(new Intent(MainActivity.this, CreditsActivity.class));
+    }
 }

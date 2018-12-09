@@ -9,10 +9,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:resizeableActivity="false"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -25,12 +25,10 @@
             android:name=".EncounterActivity"
             android:label="@string/app_name" />
         <activity android:name=".CharacterSelectionActivity" />
-        <activity android:name=".MazeActivity">
-        </activity>
-        <activity android:name=".InstructionsActivity">
-        </activity>
-        <activity android:name=".EndingActivity">
-        </activity>
+        <activity android:name=".MazeActivity"></activity>
+        <activity android:name=".InstructionsActivity"></activity>
+        <activity android:name=".EndingActivity"></activity>
+        <activity android:name=".CreditsActivity"></activity>
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@
     <string name="image_content_girl">This is an image of the female character.</string>
     <string name="character_selection">Choose Your Character</string>
     <string name="start_button">START</string>
-    <string name="help_button">Instructions</string>
+    <string name="story_button">STORY</string>
     <string name="ready_button">READY!</string>
     <string name="up_button">UP</string>
     <string name="down_button">DOWN</string>
@@ -17,6 +17,13 @@
     <string name="no_answer">Select an answer.</string>
     <string name="correct_answer">Correct</string>
     <string name="wrong_answer">Incorrect</string>
-    <string name="instructions">You are a CS125 student who has wandered into Siebel on a stormy Monday afternoon. You\'re frustrated with the MP so you decide to go to office hours to get help. But a long road stands between you and the help you so desperately need. When you meet Geoff, he appears to have gone mad…  He demands you prove yourself worthy of his help and orders you traverse the dungeons of Siebel, answering the questions of all the deceased TA\'s of times past below. You steel yourself and bravely enter the dark unknowns…</string>
+    <string name="story">You are a CS125 student who has wandered into Siebel on a stormy Monday afternoon. You\'re frustrated with the MP so you decide to go to office hours to get help. But a long road stands between you and the help you so desperately need. When you meet Geoff, he appears to have gone mad…  He demands you prove yourself worthy of his help and orders you traverse the dungeons of Siebel, answering the questions of all the deceased TA\'s of times past below. You steel yourself and bravely enter the dark unknowns…</string>
     <string name="back">Back</string>
+    <string name="credits_heading">A Special Thanks to…\n</string>
+    <string name="thanks_geoff">Professor Geoffrey - Thank you for a fun semester and all of the effort you put into teaching!\n</string>
+    <string name="thanks_assistants">The TAs, CAs, and CDs - You guys are the real MVPs. Thank you for your part in designing the course and helping during office hours! (Shout out to CS199 Staff as well)\n</string>
+    <string name="thanks_peers">Students of CS125 - First and foremost thank you for the dankest memes. They were literally what kept us going :D. But more importantly thank you for all of the amazing collaboration both on and off the forum! Congrats on completing the course!!!\n</string>
+    <string name="thanks_pepe">AND LAST BUT NOT LEAST…\n\n\n\n\n\nTHANK YOU PEPE!!!</string>
+    <string name="feels_good_man">feelsgoodman</string>
+    <string name="credits">CREDITS</string>
 </resources>
